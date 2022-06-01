@@ -46,12 +46,18 @@ extern int32_t bt_hid_app(void* p);
 extern int32_t battery_test_app(void* p);
 extern int32_t text_box_test_app(void* p);
 extern int32_t file_browser_app(void* p);
+extern int32_t hid_analyzer_app(void* p);
+extern int32_t totp_app(void* p);
 
 // Plugins
 extern int32_t music_player_app(void* p);
 extern int32_t snake_game_app(void* p);
 extern int32_t tetris_game_app(void *p);
 extern int32_t clock_app(void *p);
+extern int32_t mouse_jiggler_app(void *p);
+extern int32_t universal_rf_remote_app(void *p);
+extern int32_t chess_game_app(void *p);
+extern int32_t spectrum_analyzer_app(void* p);
 
 // On system start hooks declaration
 extern void bt_on_system_start();
@@ -233,6 +239,14 @@ const FlipperApplication FLIPPER_APPS[] = {
      .flags = FlipperApplicationFlagDefault},
 #endif
 
+#ifdef APP_HID_ANALYZER
+    {.app = hid_analyzer_app,
+     .name = "HID Analyzer",
+     .stack_size = 2048,
+     .icon = &A_HIDAnalyzer_14,
+     .flags = FlipperApplicationFlagDefault},
+#endif
+
 #ifdef APP_NFC
     {.app = nfc_app,
      .name = "NFC",
@@ -279,6 +293,14 @@ const FlipperApplication FLIPPER_APPS[] = {
      .stack_size = 2048,
      .icon = &A_U2F_14,
      .flags = FlipperApplicationFlagDefault},
+#endif
+
+#ifdef APP_TOTP
+    {.app = totp_app, 
+    .name = "OTP", 
+    .stack_size = 4096, 
+    .icon = &A_OTP_14,
+    .flags = FlipperApplicationFlagDefault},
 #endif
 };
 
@@ -370,7 +392,34 @@ const FlipperApplication FLIPPER_PLUGINS[] = {
      .stack_size = 4096,
      .icon = &A_MusicPlayer_14,
      .flags = FlipperApplicationFlagDefault},
+
+#ifdef APP_MOUSE_JIGGLER
+    {.app = mouse_jiggler_app, .name = "Mouse Jiggler", .stack_size = 1024, .icon = NULL},
+#endif
+
+#ifdef APP_UNIVERSALRF
+     {.app = universal_rf_remote_app,
+     .name = "Sub-GHz Remote",
+     .stack_size = 2048,
+     .icon = &A_UniversalRemote_14,
+     .flags = FlipperApplicationFlagDefault},
+#endif
+
+#ifdef APP_CHESS
+    {.app = chess_game_app, .name = "Chess", .stack_size = 1000, .icon = NULL},
+#endif
+
+#ifdef APP_SPECTRUM_ANALYZER
+    {.app = spectrum_analyzer_app,
+     .name = "Spectrum Analyzer",
+     .stack_size = 1024,
+     .icon = &A_Plugins_14,
+     .flags = FlipperApplicationFlagDefault},
+#endif
+
 };
+
+
 
 const size_t FLIPPER_PLUGINS_COUNT = COUNT_OF(FLIPPER_PLUGINS);
 

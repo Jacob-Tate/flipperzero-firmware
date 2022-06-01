@@ -136,3 +136,7 @@ C_SOURCES		+= $(wildcard $(LIB_DIR)/microtar/src/*.c)
 
 # Update-related common code
 C_SOURCES		+= $(wildcard $(LIB_DIR)/update_util/*.c)
+
+#Totp
+CFLAGS			+= -I$(LIB_DIR)/TOTP-MCU
+C_SOURCES		+= $(wildcard $(LIB_DIR)/TOTP-MCU/*.c)

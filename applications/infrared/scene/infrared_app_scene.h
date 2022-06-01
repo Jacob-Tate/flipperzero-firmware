@@ -303,3 +303,19 @@ public:
     ~InfraredAppSceneUniversalTV() {
     }
 };
+
+class InfraredAppSceneUniversalOrbFan : public InfraredAppSceneUniversalCommon {
+public:
+    /** Called when enter scene */
+    void on_enter(InfraredApp* app) final;
+
+    /** Constructor
+     * Specifies path to brute force db library */
+    InfraredAppSceneUniversalOrbFan()
+        : InfraredAppSceneUniversalCommon("/ext/infrared/assets/orbfan.ir") {
+    }
+
+    /** Destructor */
+    ~InfraredAppSceneUniversalOrbFan() {
+    }
+};

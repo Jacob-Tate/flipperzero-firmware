@@ -1,7 +1,12 @@
 Filetype: Flipper SubGhz RAW File
 Version: 1
 UP: /any/subghz/Vehicles/Tesla/Tesla_charge_door_AM270.sub
-DOWN: /any/subghz/DoorbellFM.sub
+DOWN: /any/subghz/Door/Handycap1650.sub
 LEFT: /any/subghz/Vehicles/Tesla/Tesla_charge_door_AM650.sub
-RIGHT: /any/subghz/Doorbell1.sub
-OK: /any/subghz/handicap_push_door.sub
+RIGHT: /any/subghz/Door/Handycap1270.sub
+OK: /any/subghz/S202205271526.sub
+ULABEL: TeslaAM270
+DLABEL: Handycap1650
+LLABEL: TeslaAM650
+RLABEL: Handycap1270
+OKLABEL: unknown

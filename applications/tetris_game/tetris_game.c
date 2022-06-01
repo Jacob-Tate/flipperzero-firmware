@@ -7,6 +7,11 @@
 #include <furi_hal_resources.h>
 #include <furi_hal_gpio.h>
 
+#include "../music_player/music_player_worker.h"
+
+#define MUSIC_PLAYER_APP_PATH_FOLDER "/any/music_player"
+#define MUSIC_PLAYER_APP_EXTENSION "*"
+
 #define BORDER_OFFSET 1
 #define MARGIN_OFFSET 3
 #define BLOCK_HEIGHT 6
@@ -355,6 +360,12 @@ static void tetris_game_process_step(TetrisState* tetris_state, Piece* newPiece,
 
 
 int32_t tetris_game_app() {
+    // MusicPlayerWorker* worker = music_player_worker_alloc();
+
+    // music_player_worker_set_volume(worker, .75);
+    // music_player_worker_load(worker, "/any/music_player/Tetris_Theme.txt");
+    // music_player_worker_start(worker);
+
     srand(DWT->CYCCNT);
 
     osMessageQueueId_t event_queue = osMessageQueueNew(8, sizeof(TetrisEvent), NULL);
@@ -474,6 +485,9 @@ int32_t tetris_game_app() {
     vTaskPrioritySet(timer_task, origTimerPrio);
     free(newPiece);
     free(tetris_state);
+
+    // music_player_worker_stop(worker);
+    // music_player_worker_free(worker);
 
     return 0;
 }

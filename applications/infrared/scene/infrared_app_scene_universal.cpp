@@ -2,6 +2,7 @@
 
 typedef enum {
     SubmenuIndexUniversalTV,
+    SubmenuIndexUniversalOrbFan,
     SubmenuIndexUniversalAudio,
     SubmenuIndexUniversalAirConditioner,
 } SubmenuIndex;
@@ -21,6 +22,7 @@ void InfraredAppSceneUniversal::on_enter(InfraredApp* app) {
     Submenu* submenu = view_manager->get_submenu();
 
     submenu_add_item(submenu, "TVs", SubmenuIndexUniversalTV, submenu_callback, app);
+    submenu_add_item(submenu, "Orb Fan", SubmenuIndexUniversalOrbFan, submenu_callback, app);
     submenu_set_selected_item(submenu, submenu_item_selected);
     submenu_item_selected = 0;
 
@@ -35,6 +37,9 @@ bool InfraredAppSceneUniversal::on_event(InfraredApp* app, InfraredAppEvent* eve
         switch(event->payload.menu_index) {
         case SubmenuIndexUniversalTV:
             app->switch_to_next_scene(InfraredApp::Scene::UniversalTV);
+            break;
+        case SubmenuIndexUniversalOrbFan:
+            app->switch_to_next_scene(InfraredApp::Scene::UniversalOrbFan);
             break;
         case SubmenuIndexUniversalAudio:
             //            app->switch_to_next_scene(InfraredApp::Scene::UniversalAudio);
