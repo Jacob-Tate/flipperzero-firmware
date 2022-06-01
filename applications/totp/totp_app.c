@@ -18,6 +18,13 @@
 static const char* totp_file_header = "Flipper TOTP storage";
 static const uint32_t totp_file_version = 1;
 
+#define NFC_FILE_NAME_MAX_LEN 120
+
+typedef struct {
+    Storage* storage;
+    char file_name[NFC_FILE_NAME_MAX_LEN];
+} Totp;
+
 typedef enum {
     TotpEventTypeTick,
     TotpEventTypeInput,
@@ -115,10 +122,26 @@ void totp_app_update(void* ctx) {
     osMessageQueuePut(event_queue, &event, 0, 0);
 }
 
+Totp* totp_alloc() {
+    Totp* totp = malloc(sizeof(Totp));
+    totp->storage = furi_record_open("storage");
+
+    return totp;
+}
+
+void totp_free(Totp* totp) {
+    furi_assert(totp);
+    furi_record_close("storage");
+    free(totp);
+}
+
 int32_t totp_app(void* p) {
     //bool saved = false;
-    Storage* storage = furi_record_open("storage");
-    FlipperFormat* file = flipper_format_file_alloc(storage);
+    //Storage* storage = furi_record_open("storage");
+    //FlipperFormat* file = flipper_format_file_alloc(storage);
+
+    Totp* totp = totp_alloc();
+
     string_t temp_str;
     //char key_name[50] = "";
     string_init(temp_str);

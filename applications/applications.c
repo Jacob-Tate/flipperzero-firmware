@@ -39,6 +39,7 @@ extern int32_t passport_app(void* p);
 extern int32_t scened_app(void* p);
 extern int32_t storage_test_app(void* p);
 extern int32_t subghz_app(void* p);
+extern int32_t magspoof_app(void* p);
 extern int32_t usb_mouse_app(void* p);
 extern int32_t usb_test_app(void* p);
 extern int32_t vibro_test_app(void* p);
@@ -229,6 +230,13 @@ const FlipperApplication FLIPPER_APPS[] = {
      .stack_size = 2048,
      .icon = &A_Sub1ghz_14,
      .flags = FlipperApplicationFlagDefault},
+#endif
+
+#ifdef APP_MAGSPOOF
+    {.app = magspoof_app, 
+    .name = "MagSpoof", 
+    .stack_size = 2048, 
+    .icon = &A_Plugins_14},
 #endif
 
 #ifdef APP_LF_RFID
