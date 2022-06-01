@@ -19,7 +19,8 @@ PROJECT_SOURCE_DIRECTORIES := \
 	$(PROJECT_ROOT)/lib/qrcode \
 	$(PROJECT_ROOT)/lib/subghz \
 	$(PROJECT_ROOT)/lib/toolbox \
-	$(PROJECT_ROOT)/lib/u8g2
+	$(PROJECT_ROOT)/lib/u8g2 \
+	$(PROJECT_ROOT)/lib/TOTP-MCU 
 
 NPROCS := 3
 OS := $(shell uname -s)
