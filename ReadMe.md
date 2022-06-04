@@ -1,3 +1,9 @@
+# Personal Project Status
+This is mostly hacked together code the TOTP works but I wanted to implement it via scenes system so its not currently working
+Additionally, Magspoof is similar in that it works but I am reimplementing it via scenes system so its not currently working
+
+Weird includes and such are due to this being hacked together namely in the usage of HAL things I wrote my own RTOS at one point and didnt get over the habit of relying on code I shouldnt be touching. This will be fixed in the future when I have time.
+
 # Flipper Zero Unleashed Firmware
 
 <a href="https://ibb.co/wQ12PVc"><img src="https://i.ibb.co/wQ12PVc/fzCUSTOM.png" alt="fzCUSTOM" border="0"></a>
