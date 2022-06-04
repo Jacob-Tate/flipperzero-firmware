@@ -16,26 +16,24 @@
 static bool open_wav_stream(Storage* storage, Stream* stream) {
     DialogsApp* dialogs = furi_record_open("dialogs");
     bool result = false;
-    size_t name_size = 255;
-    char* name_buffer = malloc(name_size);
     string_t path;
     string_init(path);
-
+    string_set_str(path, "/ext/wav_player");
     bool ret =
-        dialog_file_select_show(dialogs, "/ext/wav_player", ".wav", name_buffer, name_size, NULL);
-    furi_record_close("dialogs");
+        dialog_file_browser_show(dialogs, path, path, ".wav",
+                true,
+                &I_music_10px,
+                false);
 
+    furi_record_close("dialogs");
     if(ret) {
-        string_printf(path, "%s/%s.%s", "/ext/wav_player", name_buffer, "wav");
         if(!file_stream_open(stream, string_get_cstr(path), FSAM_READ, FSOM_OPEN_EXISTING)) {
             FURI_LOG_E(TAG, "Cannot open file \"%s\"", string_get_cstr(path));
         } else {
             result = true;
         }
     }
-
     string_clear(path);
-    free(name_buffer);
     return result;
 }
 

@@ -19,7 +19,7 @@ bool magspoof_custom_event_callback(void* context, uint32_t event) {
 }
 
 static Magspoof* magspoof_alloc() {
-    Magspoof* app = furi_alloc(sizeof(Magspoof));
+    Magspoof* app = malloc(sizeof(Magspoof));
     // UartDumpModel* cont = furi_alloc(sizeof(UartDumpModel));
 
     app->rx_stream = xStreamBufferCreate(2048, 1);

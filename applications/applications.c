@@ -21,7 +21,6 @@ extern int32_t accessor_app(void* p);
 extern int32_t archive_app(void* p);
 extern int32_t bad_usb_app(void* p);
 extern int32_t u2f_app(void* p);
-extern int32_t wav_player_app(void* p);
 extern int32_t uart_echo_app(void* p);
 extern int32_t blink_test_app(void* p);
 extern int32_t bt_debug_app(void* p);
@@ -52,6 +51,11 @@ extern int32_t totp_app(void* p);
 
 // Plugins
 extern int32_t music_player_app(void* p);
+extern int32_t wav_player_app(void* p);
+extern int32_t clock_app(void *p);
+extern int32_t unirfremix_app(void *p);
+
+// Games
 extern int32_t snake_game_app(void* p);
 extern int32_t tetris_game_app(void *p);
 extern int32_t clock_app(void *p);
@@ -239,6 +243,14 @@ const FlipperApplication FLIPPER_APPS[] = {
     .icon = &A_Plugins_14},
 #endif
 
+#ifdef APP_UNIRFREMIX
+     {.app = unirfremix_app,
+     .name = "UniRF Remix",
+     .stack_size = 2048,
+     .icon = &A_UniRFRemix_14,
+     .flags = FlipperApplicationFlagDefault},
+#endif
+
 #ifdef APP_LF_RFID
     {.app = lfrfid_app,
      .name = "125 kHz RFID",
@@ -383,16 +395,35 @@ const FlipperApplication FLIPPER_PLUGINS[] = {
      .flags = FlipperApplicationFlagDefault},
 #endif
 
+#ifdef APP_WAV_PLAYER
+    {.app = wav_player_app,
+     .name = "WAV Player",
+     .stack_size = 4096,
+     .icon = &A_MusicPlayer_14,
+     .flags = FlipperApplicationFlagDefault},
+#endif
+
+};
+
+const size_t FLIPPER_PLUGINS_COUNT = COUNT_OF(FLIPPER_PLUGINS);
+
+// Games menu
+const FlipperApplication FLIPPER_GAMES[] = {
+
 #ifdef APP_SNAKE_GAME
     {.app = snake_game_app,
-     .name = "Snake Game",
+     .name = "Snake",
      .stack_size = 1024,
-     .icon = &A_Plugins_14,
+     .icon = &A_Snake_14,
      .flags = FlipperApplicationFlagDefault},
 #endif
 
 #ifdef APP_TETRIS_GAME
-    {.app = tetris_game_app, .name = "Tetris Game", .stack_size = 1024, .icon = NULL},
+    {.app = tetris_game_app,
+     .name = "Tetris",
+     .stack_size = 1024,
+     .icon = &A_Tetris_14,
+     .flags = FlipperApplicationFlagDefault},
 #endif
 
     {.app = wav_player_app,
@@ -424,14 +455,11 @@ const FlipperApplication FLIPPER_PLUGINS[] = {
      .icon = &A_Plugins_14,
      .flags = FlipperApplicationFlagDefault},
 #endif
-
 };
 
+const size_t FLIPPER_GAMES_COUNT = COUNT_OF(FLIPPER_GAMES);
 
-
-const size_t FLIPPER_PLUGINS_COUNT = COUNT_OF(FLIPPER_PLUGINS);
-
-// Plugin menu
+// Debug menu
 const FlipperApplication FLIPPER_DEBUG_APPS[] = {
 #ifdef APP_BLINK
     {.app = blink_test_app,
@@ -492,14 +520,6 @@ const FlipperApplication FLIPPER_DEBUG_APPS[] = {
 #ifdef APP_INFRARED_MONITOR
     {.app = infrared_monitor_app,
      .name = "Infrared Monitor",
-     .stack_size = 1024,
-     .icon = NULL,
-     .flags = FlipperApplicationFlagDefault},
-#endif
-
-#ifdef APP_SCENED
-    {.app = scened_app,
-     .name = "Templated Scene",
      .stack_size = 1024,
      .icon = NULL,
      .flags = FlipperApplicationFlagDefault},

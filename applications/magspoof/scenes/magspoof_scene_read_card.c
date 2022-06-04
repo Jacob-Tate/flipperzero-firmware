@@ -1,5 +1,5 @@
 #include "../magspoof_i.h"
-#include <furi-hal-resources.h>
+#include <furi_hal_resources.h>
 
 #define MAGSPOOF_READ_CARD_CUSTOM_EVENT (10UL)
 #define MAGSPOOF_READ_CARD_DRAW_EVENT (999)
@@ -7,7 +7,7 @@
 #define WORKER_EVENTS_MASK (WorkerEventStop | WorkerEventRx)
 
 const NotificationSequence magspoof_sequence_notification = {
-    &message_display_on,
+    &message_display_backlight_on,
     &message_green_255,
     &message_delay_10,
     NULL,
@@ -63,7 +63,7 @@ void gpio_item_set_rfid_pin(uint8_t index, bool level) {
     if (index == 2) {
         // hal_gpio_write(&gpio_ext_pa2, level);
         // hal_gpio_write(&gpio_rfid_pull, level);
-        hal_gpio_write(&gpio_rfid_carrier_out, level);
+        furi_hal_gpio_write(&gpio_rfid_carrier_out, level);
     }
     if (index == 1) {
         // hal_gpio_write(&gpio_ext_pb13, level);
@@ -77,7 +77,7 @@ static void playBit(uint8_t sendBit)
   magspoof_bit_dir ^= 1;
   gpio_item_set_rfid_pin(PIN_A, magspoof_bit_dir);
   gpio_item_set_rfid_pin(PIN_B, !magspoof_bit_dir);
-  delay_us(CLOCK_US);
+  osDelay(CLOCK_US);
 
   if (sendBit)
   {
@@ -85,7 +85,7 @@ static void playBit(uint8_t sendBit)
     gpio_item_set_rfid_pin(PIN_A, magspoof_bit_dir);
     gpio_item_set_rfid_pin(PIN_B, !magspoof_bit_dir);
   }
-  delay_us(CLOCK_US);
+  osDelay(CLOCK_US);
 }
 
 static void magspoof_spoof(string_t track_str, uint8_t track) {
@@ -122,18 +122,19 @@ static void magspoof_spoof(string_t track_str, uint8_t track) {
     
     // gpio_item_configure_all_pins(GpioModeOutputPushPull);
 
-    furi_hal_ibutton_start();
+    furi_hal_ibutton_start_drive();
+    //furi_hal_ibutton_start();
     furi_hal_ibutton_pin_low();
     
     // hal_gpio_init(&gpio_rfid_carrier, GpioModeOutputPushPull, GpioPullNo, GpioSpeedLow);
     
     
-    hal_gpio_init(&gpio_rfid_pull, GpioModeOutputPushPull, GpioPullNo, GpioSpeedLow);
-    hal_gpio_write(&gpio_rfid_pull, false);
+    furi_hal_gpio_init(&gpio_rfid_pull, GpioModeOutputPushPull, GpioPullNo, GpioSpeedLow);
+    furi_hal_gpio_write(&gpio_rfid_pull, false);
 
-    hal_gpio_init(&gpio_rfid_carrier_out, GpioModeOutputPushPull, GpioPullNo, GpioSpeedLow);
+    furi_hal_gpio_init(&gpio_rfid_carrier_out, GpioModeOutputPushPull, GpioPullNo, GpioSpeedLow);
     
-    delay(300);
+    osDelay(300);
 
     FURI_CRITICAL_ENTER();
 
@@ -465,7 +466,7 @@ bool magspoof_scene_read_card_on_event(void* context, SceneManagerEvent event) {
             // nfc_device_set_name(nfc->dev, "");
             // scene_manager_next_scene(nfc->scene_manager, NfcSceneCardMenu);
             // magspoof_device_save(app->dev, "Test");
-            char * d = furi_alloc(1);
+            char * d = malloc(1);
             d[0] = string_get_char(app->dev->data, 2);
             magspoof_device_save(app->dev, d);
             return true;

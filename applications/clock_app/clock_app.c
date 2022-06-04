@@ -10,7 +10,7 @@
 
 bool timerStarted=false;
 int timerSecs=0;
-int songSelect=0;
+int songSelect=2;
 
 typedef enum {
     EventTypeTick,
@@ -195,7 +195,7 @@ int32_t clock_app(void* p) {
     UNUSED(p);
     timerStarted=false;
     timerSecs=0;
-    songSelect=0;
+    songSelect=2;
     osMessageQueueId_t event_queue = osMessageQueueNew(8, sizeof(PluginEvent), NULL);
     ClockState* plugin_state = malloc(sizeof(ClockState));
     clock_state_init(plugin_state);
